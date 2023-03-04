@@ -21,12 +21,12 @@ public class ServiceProvider {
     private Admin admin;
 
     // parent of country class
-    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "OriginalCountry", cascade = CascadeType.ALL)
     private List<Country> countryList = new ArrayList<>();
 
     // many to many with user
-    @ManyToMany(mappedBy = "serviceProviderList", cascade = CascadeType.ALL)
-    private List<User> userList = new ArrayList<>();
+    @ManyToMany(mappedBy = "serviceProviders", cascade = CascadeType.ALL)
+    private List<User> users = new ArrayList<>();
 
     // parent of connection class
     @OneToMany(mappedBy = "serviceProvider", cascade = CascadeType.ALL)
@@ -67,20 +67,19 @@ public class ServiceProvider {
     public void setCountryList(List<Country> countryList) {
         this.countryList = countryList;
     }
-
-    public List<User> getUserList() {
-        return userList;
-    }
-
-    public void setUserList(List<User> userList) {
-        this.userList = userList;
-    }
-
     public List<Connection> getConnectionList() {
         return connectionList;
     }
 
     public void setConnectionList(List<Connection> connectionList) {
         this.connectionList = connectionList;
+    }
+
+    public List<User> getUsers() {
+        return users;
+    }
+
+    public void setUsers(List<User> users) {
+        this.users = users;
     }
 }

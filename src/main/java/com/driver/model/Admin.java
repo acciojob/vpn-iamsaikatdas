@@ -19,11 +19,16 @@ public class Admin {
 
     // parent of service provider class
     @OneToMany(mappedBy = "admin", cascade = CascadeType.ALL)
-    private List<ServiceProvider> serviceProviderList = new ArrayList<>();
+    private List<ServiceProvider> serviceProviders = new ArrayList<>();
 
 
+    public List<ServiceProvider> getServiceProviders() {
+        return serviceProviders;
+    }
 
-
+    public void setServiceProviders(List<ServiceProvider> serviceProvider) {
+        this.serviceProviders = serviceProvider;
+    }
 
     public Admin() {
     }
@@ -32,7 +37,7 @@ public class Admin {
         this.id = id;
         this.username = username;
         this.password = password;
-        this.serviceProviderList = serviceProviderList;
+        this.serviceProviders = serviceProviders;
     }
 
     public int getId() {
@@ -59,11 +64,5 @@ public class Admin {
         this.password = password;
     }
 
-    public List<ServiceProvider> getServiceProviderList() {
-        return serviceProviderList;
-    }
 
-    public void setServiceProviderList(List<ServiceProvider> serviceProviderList) {
-        this.serviceProviderList = serviceProviderList;
-    }
 }

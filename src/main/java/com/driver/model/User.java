@@ -32,8 +32,15 @@ public class User {
     //one to one with country
     @OneToOne
     @JoinColumn
-    private Country country;
+    private Country originalCountry;
 
+    public Country getOriginalCountry() {
+        return originalCountry;
+    }
+
+    public void setOriginalCountry(Country originalCountry) {
+        this.originalCountry = originalCountry;
+    }
 
     public User() {
     }
@@ -102,11 +109,5 @@ public class User {
         this.connectionList = connectionList;
     }
 
-    public Country getCountry() {
-        return country;
-    }
 
-    public void setCountry(Country country) {
-        this.country = country;
-    }
 }
