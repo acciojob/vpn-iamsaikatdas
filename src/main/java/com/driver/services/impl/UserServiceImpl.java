@@ -1,5 +1,9 @@
 package com.driver.services.impl;
 
+import com.driver.model.Country;
+import com.driver.model.CountryName;
+import com.driver.model.ServiceProvider;
+import com.driver.model.User;
 import com.driver.repository.CountryRepository;
 import com.driver.repository.ServiceProviderRepository;
 import com.driver.repository.UserRepository;
@@ -20,10 +24,34 @@ public class UserServiceImpl implements UserService {
     @Override
     public User register(String username, String password, String countryName) throws Exception{
 
+        Country country = new Country();
+        country.setCountryName(CountryName.valueOf(countryName.toUpperCase()));
+        country.setCode(CountryName.valueOf(countryName.toUpperCase()).toCode());
+
+        User user = new User();
+        user.setUsername(username);
+        user.setPassword(password);
+        user.setCountry(country);
+        user.setConnected(false);
+
+        User user1 = userRepository3.save(user);
+        user.setOriginalIp(country.getCode() + "." + user1.getId());
+
+        userRepository3.save(user1);
+        return user;
     }
 
     @Override
     public User subscribe(Integer userId, Integer serviceProviderId) {
+        User user = userRepository3.findById(userId).get();
 
+        ServiceProvider serviceProvider = serviceProviderRepository3.findById(serviceProviderId).get();
+
+        user.getServiceProviderList().add(serviceProvider);
+        serviceProvider.getUserList().add(user);
+
+        serviceProviderRepository3.save(serviceProvider);
+
+        return user;
     }
 }
